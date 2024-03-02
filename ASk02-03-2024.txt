@@ -1,0 +1,327 @@
+1. Roman To Integer ==> Done 
+2. Merge Two Sorted arrays  ==> Done 
+3. Binary to decimal  ==> Done
+4. Intersection of Two arrays   ==> Done 
+5. Majority Element  ==> Done
+6. Move Zeros ==> New Added
+7. Reverse In array ==> New Added
+8. Decimal To binary ==> New Added
+
+
+Explanation is Pending
+
+
+#include <iostream>
+using namespace std;
+
+int romanToInt(string s) {
+    int ans = 0;
+
+    for (int i = 0; i < s.length(); i++) {
+        switch (s[i]) {
+            case 'I':
+                ans += 1;
+                break;
+            case 'V':
+                ans += 5;
+                break;
+            case 'X':
+                ans += 10;
+                break;
+            case 'L':
+                ans += 50;
+                break;
+            case 'C':
+                ans += 100;
+                break;
+            case 'D':
+                ans += 500;
+                break;
+            case 'M':
+                ans += 1000;
+                break;
+            default:
+                return -1;  //Not found
+        }
+    }
+
+    return ans;
+}
+
+int main() {
+    string romanNumeral = "XII";
+    int result = romanToInt(romanNumeral);
+
+    if (result != -1) {
+        cout << "Integer value: " << result << endl;
+    }
+
+    return 0;
+}
+
+
+
+Intersection Of two arrays
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> Intersection(int arr[], int size, int arr2[], int size2) {
+    int i = 0;
+    int j = 0;
+    vector<int> ans;
+// jo bhi maximum number hoga loop waha tak chalegi
+    while (i < size && j < size2) {
+        if (arr[i] == arr2[j]) {
+            ans.push_back(arr[i]);
+            i++;
+            j++;
+        } else if (arr[i] < arr2[j]) {
+            i++;
+        } else {
+            j++;
+        }
+    }
+    return ans;
+}
+
+int main() {
+    int arr[] = {1, 2, 2, 3, 3, 4};
+    int arr2[] = {2, 3, 9};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    vector<int> ans = Intersection(arr, size, arr2, size2);
+
+    for (int duplicate : ans) {
+        cout << duplicate << " ";
+    }
+
+    return 0;
+}
+
+
+//Reverse In array 
+#include <iostream>
+using namespace std;
+
+void swap(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int reverseInArray(int arr[],int size){
+   int s = 0; int e= size-1;
+
+   while(s<=e){
+      swap(arr[s],arr[e]);
+      s++;
+      e--;
+   }
+}
+
+int main() {
+    // Example usage
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    reverseInArray(arr,size);
+
+    for(int i=0;i<size;i++){
+      cout << arr[i];
+    }
+
+
+}
+
+
+//Merge Two Sorted arrays  
+#include <iostream>
+
+void mergeSortedArr(int arr[], int n, int arr2[], int m, int arr3[]) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < n && j < m) {
+        if (arr[i] < arr2[j]) {
+            arr3[k] = arr[i];
+            k++;
+            i++;
+        } else {
+            arr3[k] = arr2[j];
+            k++;
+            j++;
+        }
+    }
+
+    // Copy remaining elements of the first array
+    while (i < n) {
+        arr3[k] = arr[i];
+        k++;
+        i++;
+    }
+
+    // Copy remaining elements of the second array
+    while (j < m) {
+        arr3[k] = arr2[j];
+        k++;
+        j++;
+    }
+}
+
+int main() {
+    const int size1 = 5;
+    const int size2 = 3;
+    int arr1[size1] = {1, 3, 5, 7, 9};
+    int arr2[size2] = {2, 4, 6};
+    int arr3[size1 + size2];
+
+    mergeSortedArr(arr1, size1, arr2, size2, arr3);
+
+    // Print the merged array
+    for (int i = 0; i < size1 + size2; i++) {
+        std::cout << arr3[i] << " ";
+    }
+
+    return 0;
+}
+
+//Move Zeros
+If elemet is non zero Swap the element
+#include <iostream>
+using namespace std;
+
+void swap(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int moveNonZero(int arr[], int size) {
+    int i = 0;
+    for (int j = 0; j < size; j++) {
+        if (arr[j] != 0) {
+            swap(arr[j], arr[i]);
+            i++;
+        }
+    }
+    return i; 
+}
+
+int main() {
+    const int size = 6;
+    int arr[size] = {0, 2, 0, 4, 0, 6};
+
+    int nonZeroIndex = moveNonZero(arr, size);
+
+    // Print the modified array
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+
+    cout << "Total Count Non Zero" << nonZeroIndex << endl;
+
+    return 0;
+}
+
+
+//decimal To Binary and binary to decimal
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    int ans = 0;
+    int base = 1;
+    
+    while (n != 0) {
+        int bit = n % 2;
+        ans = ans + (bit * base);
+        n = n / 2;
+        base = base * 10; 
+    }
+
+    cout << ans;
+    return 0;
+}
+
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int binaryToDecimal(int n) {
+    int decimal = 0;
+    int base = 1; 
+
+    while (n > 0) {
+        int lastDigit = n % 10; 
+        decimal += lastDigit * base;
+        n /= 10; 
+        base *= 2; 
+    }
+
+    return decimal;
+}
+
+int main() {
+    int binaryNumber;
+    cout << "Enter a binary number: ";
+    cin >> binaryNumber;
+
+    int decimalNumber = binaryToDecimal(binaryNumber);
+
+    cout << "Decimal equivalent: " << decimalNumber << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+int findMajorityElement(int arr[], int size) {
+    int el = 0;
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (count == 0) {
+            el = arr[i];
+        }
+        if (el == arr[i]) 
+            count++;
+        else 
+            count--;
+    }
+
+    count = 0;
+    for (int i = 0; i < size; i++) {
+        if (el == arr[i]) {
+            count++;
+        }
+    }
+
+    if (count >= size / 2) {
+        return el;
+    }
+    return -1;
+}
+
+int main() {
+    // Example usage
+    int arr[] = {2, 2, 2,2,2,2, 4, 4, 4, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int result = findMajorityElement(arr, size);
+
+    if (result != -1) {
+        cout << "Majority Element: " << result << endl;
+    } else {
+        cout << "No Majority Element found." << endl;
+    }
+    return 0;
+}
+
